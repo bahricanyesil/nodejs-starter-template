@@ -1,7 +1,7 @@
-const bcrypt = require("bcryptjs");
-const { User } = require("../../../../models");
-const { userValidator } = require("../../../validators");
-const { errorHelper, logger, getText } = require("../../../../utils");
+const bcrypt = require('bcryptjs');
+const { User } = require('../../../../models');
+const { userValidator } = require('../../../validators');
+const { errorHelper, logger, getText } = require('../../../../utils');
 
 module.exports = async (req, res) => {
     const { error } = userValidator.changePassword(req.body);

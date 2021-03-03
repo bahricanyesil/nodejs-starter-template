@@ -1,14 +1,14 @@
-const AWS = require("aws-sdk");
-const { User } = require("../../../../models");
-const { userValidator } = require("../../../validators");
-const { errorHelper, logger, getText, localTextHelper } = require("../../../../utils");
-const { awsAccessKey, awsSecretAccessKey, awsRegion, bucketName } = require("../../../../config");
+const AWS = require('aws-sdk');
+const { User } = require('../../../../models');
+const { userValidator } = require('../../../validators');
+const { errorHelper, logger, getText, localTextHelper } = require('../../../../utils');
+const { awsAccessKey, awsSecretAccessKey, awsRegion, bucketName } = require('../../../../config');
 
 const s3 = new AWS.S3({
     accessKeyId: awsAccessKey,
     secretAccessKey: awsSecretAccessKey,
     region: awsRegion,
-    signatureVersion: "v4",
+    signatureVersion: 'v4',
 });
 
 module.exports = async (req, res) => {
@@ -16,13 +16,13 @@ module.exports = async (req, res) => {
     if (error) {
         let code = '00077';
         const message = error.details[0].message;
-        if (message.includes("gender"))
+        if (message.includes('gender'))
             code = '00078';
-        else if (message.includes("language"))
+        else if (message.includes('language'))
             code = '00079';
-        else if (message.includes("birthDate"))
+        else if (message.includes('birthDate'))
             code = '00080';
-        else if (message.includes("username"))
+        else if (message.includes('username'))
             code = '00081';
         return res.status(400).json(errorHelper(code, req, message));
     }
@@ -47,7 +47,7 @@ module.exports = async (req, res) => {
     if (req.file) {
         const params = {
             Bucket: bucketName,
-            Key: localTextHelper.turkishToEnglish(user.name).replace(/\s/g, "").toLowerCase() + "/" + user._id + "/" + Date(Date.now()).toLowerCase().substring(0, 15).replace(/\s/g, "-"),
+            Key: localTextHelper.turkishToEnglish(user.name).replace(/\s/g, '').toLowerCase() + '/' + user._id + '/' + Date(Date.now()).toLowerCase().substring(0, 15).replace(/\s/g, '-'),
             Body: req.file.buffer,
             ContentType: req.file.mimetype,
         };
