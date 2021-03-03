@@ -2,7 +2,7 @@ const JWT = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const { User, Token } = require("../../../models");
 const { errorHelper } = require('../../../utils');
-require("dotenv").config();
+const { jwtSecretKey } = require('../../../config');
 
 module.exports = async (req, res, next) => {
     let token = req.header("Authorization");
@@ -13,7 +13,7 @@ module.exports = async (req, res, next) => {
         token = req.header("Authorization").replace("Bearer ", "");
 
     try {
-        req.user = JWT.verify(token, process.env.JWT_SECRET_KEY);
+        req.user = JWT.verify(token, jwtSecretKey);
         if (!mongoose.Types.ObjectId.isValid(req.user._id))
             return res.status(400).json(errorHelper('00007', req));
 
@@ -35,6 +35,6 @@ module.exports = async (req, res, next) => {
 
         next();
     } catch (err) {
-        return res.status(403).json(errorHelper('00012', req));
+        return res.status(403).json(errorHelper('00012', req, err.message));
     }
 };

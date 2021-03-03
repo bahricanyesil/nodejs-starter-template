@@ -1,6 +1,7 @@
 const { RateLimiterMongo } = require('rate-limiter-flexible');
 const mongoose = require('mongoose');
 const { errorHelper } = require('../../utils');
+const { dbUri } = require('../../config');
 
 const mongoOpts = {
     useCreateIndex: true,
@@ -9,7 +10,7 @@ const mongoOpts = {
     useFindAndModify: false
 };
 
-const mongoConn = mongoose.createConnection(process.env.DB_URI, mongoOpts);
+const mongoConn = mongoose.createConnection(dbUri, mongoOpts);
 
 const opts = {
     storeClient: mongoConn,

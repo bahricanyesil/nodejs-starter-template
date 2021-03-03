@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
+const { dbUri } = require('../config');
 
 module.exports = async () => {
     await mongoose
-        .connect(process.env.DB_URI,
+        .connect(dbUri,
             {
                 useCreateIndex: true,
                 useNewUrlParser: true,

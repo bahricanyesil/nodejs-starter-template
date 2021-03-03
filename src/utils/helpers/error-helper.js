@@ -1,4 +1,4 @@
-const { logger, ipHelper } = require('../index');
+const logger = require('../logger');
 const en = require('../lang/en');
 const tr = require('../lang/tr');
 
@@ -11,9 +11,9 @@ module.exports = (code, req, errorMessage) => {
     const enMessage = en[key];
     const trMessage = tr[key];
     if (enMessage.includes('server error')) {
-        logger(code, req?.user?._id ?? '', errorMessage, 'Server Error', ipHelper(req));
+        logger(code, req?.user?._id ?? '', errorMessage, 'Server Error', req);
     } else {
-        logger(code, req?.user?._id ?? '', errorMessage ?? enMessage, 'Client Error', ipHelper(req));
+        logger(code, req?.user?._id ?? '', errorMessage ?? enMessage, 'Client Error', req);
     }
 
     return {

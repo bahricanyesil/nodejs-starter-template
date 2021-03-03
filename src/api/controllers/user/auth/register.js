@@ -2,7 +2,8 @@ const bcrypt = require("bcryptjs");
 const geoip = require("geoip-lite");
 const { User } = require('../../../../models');
 const { userValidator } = require('../../../validators');
-const { errorHelper, generateRandomCode, sendCodeToEmail, logger, ipHelper, getText, localTextHelper } = require('../../../../utils');
+const { errorHelper, generateRandomCode, sendCodeToEmail, logger, getText, localTextHelper, jwtTokenHelper } = require('../../../../utils');
+const ipHelper = require('../../../../utils/helpers/ip-helper');
 
 module.exports = async (req, res) => {
     const { error } = userValidator.register(req.body);
@@ -64,15 +65,17 @@ module.exports = async (req, res) => {
     });
 
     user = await user.save().catch((err) => {
-        return res.status(500).json(errorJson(errorHelper('00034', req, err.message)));
+        return res.status(500).json(errorHelper('00034', req, err.message));
     });
 
     user.password = null;
 
-    logger("00035", user._id, getText('en', '00035'), 'Info', ipHelper(req));
-    //TODO: Confirm code will be sent via token by signing with secret key
+    const confirmCodeToken = jwtTokenHelper.signRConfirmCodeToken(user._id, emailCode);
+    console.log(emailCode);
+
+    logger("00035", user._id, getText('en', '00035'), 'Info', req);
     return res.status(200).json({
         resultMessage: { en: getText('en', '00035'), tr: getText('tr', '00035') },
-        resultCode: "00035", user
+        resultCode: "00035", user, confirmToken: confirmCodeToken
     });
 };
