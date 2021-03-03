@@ -1,5 +1,5 @@
-const en = require('./en');
-const tr = require('./tr');
+const en = require('./en.json');
+const tr = require('./tr.json');
 
 module.exports = (lang, key) => {
     if (lang == 'tr') {

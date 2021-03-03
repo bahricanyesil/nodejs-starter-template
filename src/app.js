@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
-const api = require('./src/config');
+const api = require('./config');
 
-require('./src/loaders')(app);
+require('./loaders')(app);
 
 const PORT = api.port;
 
