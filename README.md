@@ -43,7 +43,7 @@ Social logins (Google&Apple), unit and integration tests, in-app purchases (Goog
 - **Validation**: request data validation using [Joi](https://github.com/hapijs/joi)
 - **Logging**: using a log model and storing in the db
 - **Error handling**: centralized error handling mechanism with specific result messages and codes
-- **Image Uploading**: using [AWS s3 bucket](https://aws.amazon.com/tr/s3/)
+- **Image Uploading**: using [AWS S3 bucket](https://aws.amazon.com/tr/s3/)
 - **Email Sending**: for now for verification code by using [nodemailer](https://nodemailer.com/about/) and [AWS SES](https://aws.amazon.com/tr/ses/)
 - **Multilanguage Support**: using a util and jsons
 - **Environment variables**: using [dotenv](https://github.com/motdotla/dotenv)
@@ -52,3 +52,24 @@ Social logins (Google&Apple), unit and integration tests, in-app purchases (Goog
 - **Compression**: gzip compression with [compression](https://github.com/expressjs/compression)
 <!-- FEATURES:END -->
 
+<br />
+
+## [Environment Variables](#environment-variables)
+
+The environment variables should be set in a '.env' file just as .env.sample file. You should set the values of these keys:
+
+```js
+# URL of the Mongo DB
+DB_URI=DB_URI_HERE
+
+# JWT
+# JWT secret key for access token
+JWT_SECRET_KEY=JWT_SECRET_KEY_HERE
+# JWT secret key for refresh token
+REFRESH_TOKEN_SECRET_KEY=REFRESH_TOKEN_SECRET_KEY_HERE
+
+# AWS configurations for S3 and SES services
+AWS_REGION=AWS_REGION_HERE
+AWS_ACCESS_KEY_ID=AWS_ACCESS_KEY_ID_HERE
+AWS_SECRET_ACCESS_KEY=AWS_SECRET_ACCESS_KEY_HERE
+```
