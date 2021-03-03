@@ -36,3 +36,19 @@ Social logins (Google&Apple), unit and integration tests, in-app purchases (Goog
 <br />
 
 ## [Features](#features)
+
+<!-- FEATURES:START -->
+- **NoSQL database**: [MongoDB](https://www.mongodb.com/) object data modeling using [Mongoose](https://mongoosejs.com/)
+- **Authentication and authorization**: using [JWT](https://jwt.io/) (access and refresh token)
+- **Validation**: request data validation using [Joi](https://github.com/hapijs/joi)
+- **Logging**: using a log model and storing in the db
+- **Error handling**: centralized error handling mechanism with specific result messages and codes
+- **Image Uploading**: using [AWS s3 bucket](https://aws.amazon.com/tr/s3/)
+- **Email Sending**: for now for verification code by using [nodemailer](https://nodemailer.com/about/) and [AWS SES](https://aws.amazon.com/tr/ses/)
+- **Multilanguage Support**: using a util and jsons
+- **Environment variables**: using [dotenv](https://github.com/motdotla/dotenv)
+- **Security**: set security HTTP headers using [helmet](https://helmetjs.github.io/)
+- **CORS**: Cross-Origin Resource-Sharing enabled using [cors](https://github.com/expressjs/cors)
+- **Compression**: gzip compression with [compression](https://github.com/expressjs/compression)
+<!-- FEATURES:END -->
+
