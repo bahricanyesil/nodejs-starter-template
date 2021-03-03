@@ -50,12 +50,33 @@ function validateForgotPassword(body) {
     return schema.validate(body);
 }
 
+function validateChangePassword(body) {
+    const schema = Joi.object({
+        oldPassword: Joi.string().min(6).max(20).required(),
+        newPassword: Joi.string().min(6).max(20).required()
+    });
+    return schema.validate(body);
+}
+
+function validateEditUser(body) {
+    const schema = Joi.object({
+        name: Joi.string().min(3).max(24),
+        username: Joi.string().min(3).max(15),
+        language: Joi.string().valid('tr', 'en'),
+        gender: Joi.string().valid('male', 'female', 'other'),
+        birthDate: Joi.date()
+    });
+    return schema.validate(body);
+}
+
 module.exports = {
     register: validateRegister,
     login: validateLogin,
     sendVerificationCode: validateSendVerificationCode,
     verifyEmail: validateVerifyEmail,
     refreshToken: validateRefreshToken,
-    forgotPassword: validateForgotPassword
+    forgotPassword: validateForgotPassword,
+    changePassword: validateChangePassword,
+    editUser: validateEditUser
 };
 
