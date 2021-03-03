@@ -11,6 +11,9 @@ const sendVerificationCode = require('./auth/send-verification-code');
 const changePassword = require('./edit/change-password');
 const editUser = require('./edit/edit-user');
 
+const getUser = require('./get-user');
+const deleteUser = require('./delete-user');
+
 module.exports = {
     register,
     login,
@@ -20,5 +23,7 @@ module.exports = {
     sendVerificationCode,
     forgotPassword,
     changePassword,
-    editUser
+    editUser,
+    getUser,
+    deleteUser
 };

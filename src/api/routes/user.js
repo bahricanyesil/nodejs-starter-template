@@ -18,4 +18,7 @@ router.post('/send-verification-code', userController.sendVerificationCode);
 router.post('/change-password', auth, userController.changePassword);
 router.put('/', auth, imageUpload, userController.editUser);
 
+router.get('/', auth, userController.getUser);
+router.delete('/', auth, userController.deleteUser);
+
 module.exports = router;
