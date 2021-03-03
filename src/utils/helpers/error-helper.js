@@ -8,7 +8,7 @@ module.exports = (code, req, errorMessage) => {
     if (!en[code]) key = '00008';
 
     let userId = '';
-    if (req.user._id) userId = req.user._id;
+    if (req && req.user && req.user._id) userId = req.user._id;
 
     const enMessage = en[key];
     const trMessage = tr[key];
