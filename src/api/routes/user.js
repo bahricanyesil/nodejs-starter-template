@@ -12,7 +12,6 @@ router.post('/verify-email', userController.verifyEmail);
 router.post('/refresh-token', userController.refreshToken);
 router.post('/forgot-password', auth, userController.forgotPassword);
 router.post('/send-verification-code', userController.sendVerificationCode);
-//TODO: Social logins will be added
 
 // EDIT
 router.post('/change-password', auth, userController.changePassword);
