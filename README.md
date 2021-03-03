@@ -73,3 +73,72 @@ AWS_REGION=AWS_REGION_HERE
 AWS_ACCESS_KEY_ID=AWS_ACCESS_KEY_ID_HERE
 AWS_SECRET_ACCESS_KEY=AWS_SECRET_ACCESS_KEY_HERE
 ```
+
+## [Project Structure](#project-structure)
+
+```js
+├─ src
+│  ├─ api
+│  │  ├─ controllers
+│  │  │  └─ user
+│  │  │     ├─ auth
+│  │  │     │  ├─ forgot-password.js
+│  │  │     │  ├─ login.js
+│  │  │     │  ├─ logout.js
+│  │  │     │  ├─ refresh-token.js
+│  │  │     │  ├─ register.js
+│  │  │     │  ├─ send-verification-code.js
+│  │  │     │  └─ verify-email.js
+│  │  │     ├─ edit
+│  │  │     │  ├─ change-password.js
+│  │  │     │  └─ edit-user.js
+│  │  │     ├─ delete-user.js
+│  │  │     ├─ get-user.js
+│  │  │     └─ index.js
+│  │  ├─ middlewares
+│  │  │  ├─ auth
+│  │  │  │  ├─ check-auth.js
+│  │  │  │  └─ check-authority.js
+│  │  │  ├─ image-upload.js
+│  │  │  ├─ index.js
+│  │  │  ├─ object-id-control.js
+│  │  │  └─ rate-limiter.js
+│  │  ├─ routes
+│  │  │  ├─ index.js
+│  │  │  └─ user.js
+│  │  └─ validators
+│  │     ├─ index.js
+│  │     └─ user.validator.js
+│  ├─ config
+│  │  └─ index.js
+│  ├─ loaders
+│  │  ├─ express.js
+│  │  ├─ index.js
+│  │  └─ mongoose.js
+│  ├─ models
+│  │  ├─ index.js
+│  │  ├─ log.js
+│  │  ├─ token.js
+│  │  └─ user.js
+│  ├─ utils
+│  │  ├─ helpers
+│  │  │  ├─ error-helper.js
+│  │  │  ├─ generate-random-code.js
+│  │  │  ├─ ip-helper.js
+│  │  │  ├─ jwt-token-helper.js
+│  │  │  └─ local-text-helper.js
+│  │  ├─ lang    
+│  │  │  ├─ en.json
+│  │  │  ├─ get-text.js
+│  │  │  └─ tr.json
+│  │  ├─ index.js
+│  │  ├─ logger.js
+│  │  └─ send-code-to-email.js
+│  └─ app.js
+├─ .env.sample
+├─ README.md
+├─ .gitignore
+├─ LICENSE
+├─ package-lock.json
+└─ package.json
+```
