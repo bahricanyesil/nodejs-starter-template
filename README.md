@@ -42,7 +42,7 @@ Social logins (Google&Apple), unit and integration tests, in-app purchases (Goog
 - **Authentication and authorization**: using [JWT](https://jwt.io/) (access and refresh token)
 - **Validation**: request data validation using [Joi](https://github.com/hapijs/joi)
 - **Logging**: using a log model and storing in the db
-- **Error handling**: centralized error handling mechanism with specific result messages and codes
+- **Error handling**: error handling mechanism with specific result messages and codes
 - **Image Uploading**: using [AWS S3 bucket](https://aws.amazon.com/tr/s3/)
 - **Email Sending**: for now for verification code by using [nodemailer](https://nodemailer.com/about/) and [AWS SES](https://aws.amazon.com/tr/ses/)
 - **Multilanguage Support**: using a util and jsons
@@ -73,6 +73,8 @@ AWS_REGION=AWS_REGION_HERE
 AWS_ACCESS_KEY_ID=AWS_ACCESS_KEY_ID_HERE
 AWS_SECRET_ACCESS_KEY=AWS_SECRET_ACCESS_KEY_HERE
 ```
+
+<br />
 
 ## [Project Structure](#project-structure)
 
@@ -141,4 +143,21 @@ AWS_SECRET_ACCESS_KEY=AWS_SECRET_ACCESS_KEY_HERE
 ├─ LICENSE
 ├─ package-lock.json
 └─ package.json
+```
+
+<br />
+
+## [Error Handling](#error-handling)
+
+App has catch functions for each async operations. Besides this, in any unwanted request bodies or unwanted situations sends an error response.
+There is a helper whose name is 'error-helper'. It takes 3 parameters: code, req, errorMessage (optional if there is).
+It takes the English and Turkish result messages seperately by using the code parameter and getText helper.
+Sends the required information to logger util to log and after that returns the error-response template which is:
+
+```js
+  'resultMessage': {
+    'en': enMessage,
+    'tr': trMessage
+   },
+   'resultCode': code
 ```
