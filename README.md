@@ -239,9 +239,9 @@ The permissions are role-based. There are 4 roles default: admin-reader-creator-
 If the user making the request does not have the required permissions to access this route, a Forbidden (403) error is thrown.
 
 **3 Types Of Authority Check**:
-- checkAdmin: controls whether the user has admin type
-- checkCreator: controls whether the user has admin or creator type
-- checkReader: controls whether the user is normal user or has some extra permissions
+- **checkAdmin**: controls whether the user has admin type
+- **checkCreator**: controls whether the user has admin or creator type
+- **checkReader**: controls whether the user is normal user or has some extra permissions
 
 <br />
 
@@ -265,3 +265,29 @@ level: (to understand the type of the log, there are 7 options: 'Info'-'Server E
 errorMessage: (the message contains the details of the error),
 ip: (the ip which the request is sent from)
 ```
+
+<br />
+
+## [Contribution](#contribution)
+
+Contributions are very, very important for me and for those who want to benefit from this resource. I will be very appreciated if you allocate time to contribute.
+
+### How can you contribute?
+
+If you have a new feature that you want to implement or you encountered with a bug that you know the reason of it and like to fix, you can do all of these by following this process:
+
+- Create an issue to explain the details of what you want to do
+- Fork the repo
+- Clone the repo and set it up
+- Implement the necessary changes by following the written code layout
+- Send a pull request
+
+
+### Important notes
+
+- Please do not go beyond the written code layout.
+- If you need, create folders acc. to the current folder structure.
+- Add specific result codes for each async function with catch.
+- Add specific and clear result messages for each result code in both English and Turkish.
+- Use only error-helper for error handling by looking at the sample code.
+- Use only logger util for logging by lookin at the sample code. 
