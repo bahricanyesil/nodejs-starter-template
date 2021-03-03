@@ -290,4 +290,6 @@ If you have a new feature that you want to implement or you encountered with a b
 - Add specific result codes for each async function with catch.
 - Add specific and clear result messages for each result code in both English and Turkish.
 - Use only error-helper for error handling by looking at the sample code.
-- Use only logger util for logging by lookin at the sample code. 
+- Use only logger util for logging by looking at the sample code. 
+
+**THANK YOU!**
