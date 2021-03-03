@@ -161,3 +161,106 @@ Sends the required information to logger util to log and after that returns the 
    },
    'resultCode': code
 ```
+
+<br />
+
+## [Validation](#validation)
+
+Request data is validated using [Joi](https://github.com/hapijs/joi).
+
+The validation schemas are defined in the src/validators directory and are used in the controllers by providing body as the parameter to the specific validation function.
+
+```js
+# A sample function in user.validator.js
+  function validateEditUser(body) {
+    const schema = Joi.object({
+        name: Joi.string().min(3).max(24),
+        username: Joi.string().min(3).max(15),
+        language: Joi.string().valid('tr', 'en'),
+        gender: Joi.string().valid('male', 'female', 'other'),
+        birthDate: Joi.date()
+    });
+    return schema.validate(body);
+}
+
+# A sample call to a validate function
+const { userValidator } = require('../../../validators');
+
+const { error } = userValidator.editUser(req.body);
+```
+
+<br />
+
+## [Authentication](#authentication)
+
+To require authentication for certain routes, you can use the **check-auth** middleware.
+
+```js
+const express = require('express');
+const router = express.Router();
+const userController = require('../controllers/user/');
+const { auth, imageUpload } = require('../middlewares');
+
+router.put('/', auth, imageUpload, userController.editUser);
+```
+
+These routes require a valid JWT access token in the Authorization request header using the Bearer schema. If the request does not contain a valid access token, an error is thrown.
+
+### Generating Access Tokens:
+
+Access token is generated with the help of jwt-token-helper util. Client can get an access token by sending a successful request to the verify-email (POST /api/user/verify-email), login (POST /api/user/login) or refresh-token (POST /api/user/refresh-token) endpoints. The response of these endpoints also contains a refresh token (explained below).
+
+An access token is valid for 1 hour. You can modify this expiration time by changing the expiresIn property in the jwt-token-helper.js.
+
+### Refreshing Access Tokens:
+
+After the access token expires, a new access token can be generated, by sending a request to the refresh token endpoint (POST /api/user/refresh-token) and sending along a valid refresh token in the request body. If the request terminates successfully, app returns a new access token and a new refresh token.
+
+A refresh token is valid for 7 days. You can modify this expiration time by changing the expiresIn property in the jwt-token-helper.js.
+
+
+<br />
+
+## [Authorization](#authorization)
+
+To require certain permissions and authority to access certain routes, you can use the **check-authority** middleware.
+
+```js
+const express = require('express');
+const router = express.Router();
+const userController = require('../controllers/user/');
+const { auth, authority } = require('../middlewares');
+
+router.put('/', authority.checkAdmin, userController.SAMPLE_ROUTE);
+```
+
+In the example above, an authenticated user can access this route only if has the admin authority/the admin type.
+The permissions are role-based. There are 4 roles default: admin-reader-creator-user. You can expand this list and set the authorities of each role acc. to your needs.
+
+If the user making the request does not have the required permissions to access this route, a Forbidden (403) error is thrown.
+
+**3 Types Of Authority Check**:
+1- checkAdmin: controls whether the user has admin type
+2- checkCreator: controls whether the user has admin or creator type
+3- checkReader: controls whether the user is normal user or has some extra permissions
+
+## [Logging](#logging)
+
+For logging, there is a logger.js in the utils folder. It writes the logs to db by using the Log model. 
+
+I chose to store the logs in the DB for this project. However, you can also choose to store logs in a file instead of DB because of the speed or another problem. 
+
+Both file and DB for storing have some advantages and disadvantages. Actually, there is a trade-off. If you consider speed and file size, you can store the logs in a file.
+However, if you consider the query speed and fast access/read/process when you need, easiness to implement and using logs to have some statistics about app/users, storing in the DB is more efficient.
+
+There are unique result messages and result codes for each part of the code. Therefore, when a log is added to DB, you can understand the source of the error if it is not in 'Info' level and understand the action of the user if it is in 'Info' level. All result messages with their result codes are written in the en.json and tr.json files.
+
+Log Model: 
+
+```js
+userId: (id of the user who sent the request),
+resultCode: (result code to understand which part of the code wrote this log and also to return to the client),
+level: (to understand the type of the log, there are 7 options: 'Info'-'Server Error'-'Client Error'-'Uncaught Exception'-'Unhandled Rejection'-'Process-Env'-'External Error'),
+errorMessage: (the message contains the details of the error),
+ip: (the ip which the request is sent from)
+```
