@@ -1,5 +1,4 @@
 const Joi = require('joi');
-Joi.objectId = require('joi-objectid')(Joi);
 
 function validateRegister(body) {
     const schema = Joi.object({
@@ -29,10 +28,34 @@ function validateSendVerificationCode(body) {
     return schema.validate(body);
 }
 
+function validateVerifyEmail(body) {
+    const schema = Joi.object({
+        token: Joi.string().min(10).required(),
+        code: Joi.string().length(4).required()
+    });
+    return schema.validate(body);
+}
+
+function validateRefreshToken(body) {
+    const schema = Joi.object({
+        refreshToken: Joi.string().min(10).required()
+    });
+    return schema.validate(body);
+}
+
+function validateForgotPassword(body) {
+    const schema = Joi.object({
+        password: Joi.string().min(6).max(20).required()
+    });
+    return schema.validate(body);
+}
 
 module.exports = {
     register: validateRegister,
     login: validateLogin,
-    sendVerificationCode: validateSendVerificationCode
+    sendVerificationCode: validateSendVerificationCode,
+    verifyEmail: validateVerifyEmail,
+    refreshToken: validateRefreshToken,
+    forgotPassword: validateForgotPassword
 };
 

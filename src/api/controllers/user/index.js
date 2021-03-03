@@ -1,9 +1,17 @@
 const register = require('./auth/register');
 const login = require('./auth/login');
+const logout = require('./auth/logout');
+const verifyEmail = require('./auth/verify-email');
+const refreshToken = require('./auth/refresh-token');
+const forgotPassword = require('./auth/forgot-password');
 const sendVerificationCode = require('./auth/send-verification-code');
 
 module.exports = {
     register,
     login,
-    sendVerificationCode
+    logout,
+    verifyEmail,
+    refreshToken,
+    sendVerificationCode,
+    forgotPassword
 };

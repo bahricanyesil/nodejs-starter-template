@@ -1,11 +1,13 @@
 const { createTransport } = require('nodemailer');
 const AWS = require('aws-sdk');
-const { getText, errorHelper, ipHelper } = require('./index');
+const getText = require('./lang/get-text');
+const errorHelper = require('./helpers/error-helper');
+const { awsAccessKey, awsSecretAccessKey, awsRegion } = require('../config');
 
 AWS.config.update({
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    region: process.env.AWS_REGION
+    accessKeyId: awsAccessKey,
+    secretAccessKey: awsSecretAccessKey,
+    region: awsRegion
 });
 
 module.exports = async (email, name, confirmCode, lang, type, req, res) => {

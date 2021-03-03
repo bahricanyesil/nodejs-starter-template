@@ -6,19 +6,22 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 const api = require('./../config');
 const routes = require('./../api/routes');
-const { logger, ipHelper } = require('../utils');
+const { logger } = require('../utils');
 const { rateLimiter } = require('../api/middlewares');
+const { jwtSecretKey } = require('../config');
 
 module.exports = async (app) => {
-    process.on('uncaughtException', (error) => {
-        logger('00001', '', error.message, 'Uncaught Exception', '');
+    process.on('uncaughtException', async (error) => {
+        await logger('00001', '', error.message, 'Uncaught Exception', '');
+        process.exit(1);
     });
 
-    process.on('unhandledRejection', (ex) => {
-        logger('00002', '', ex.message, 'Unhandled Rejection', '');
+    process.on('unhandledRejection', async (ex) => {
+        await logger('00002', '', ex.message, 'Unhandled Rejection', '');
+        process.exit(1);
     });
 
-    if (!process.env.JWT_SECRET_KEY) {
+    if (!jwtSecretKey) {
         logger('00003', '', 'Jwtprivatekey is not defined', 'Process-Env', '');
         process.exit(1);
     }
@@ -32,6 +35,7 @@ module.exports = async (app) => {
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(express.static('public'));
     app.disable('x-powered-by');
+    app.disable('etag');
 
     app.use(rateLimiter);
     app.use(api.prefix, routes);
@@ -75,7 +79,7 @@ module.exports = async (app) => {
             resultCode = '00014';
             level = 'Client Error';
         }
-        logger(resultCode, req?.user?._id ?? '', error.message, level, ipHelper(req));
+        logger(resultCode, req?.user?._id ?? '', error.message, level, req);
         return res.json({
             resultMessage: {
                 en: error.message,
