@@ -218,7 +218,6 @@ After the access token expires, a new access token can be generated, by sending 
 
 A refresh token is valid for 7 days. You can modify this expiration time by changing the expiresIn property in the jwt-token-helper.js.
 
-
 <br />
 
 ## [Authorization](#authorization)
@@ -240,9 +239,11 @@ The permissions are role-based. There are 4 roles default: admin-reader-creator-
 If the user making the request does not have the required permissions to access this route, a Forbidden (403) error is thrown.
 
 **3 Types Of Authority Check**:
-1- checkAdmin: controls whether the user has admin type
-2- checkCreator: controls whether the user has admin or creator type
-3- checkReader: controls whether the user is normal user or has some extra permissions
+- checkAdmin: controls whether the user has admin type
+- checkCreator: controls whether the user has admin or creator type
+- checkReader: controls whether the user is normal user or has some extra permissions
+
+<br />
 
 ## [Logging](#logging)
 
