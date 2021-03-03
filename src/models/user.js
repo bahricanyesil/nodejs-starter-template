@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
     email: {
@@ -49,7 +49,7 @@ const userSchema = mongoose.Schema({
     photoUrl: {
         type: String,
         default:
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Node.js_logo.svg/1200px-Node.js_logo.svg.png",
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Node.js_logo.svg/1200px-Node.js_logo.svg.png',
     },
     //NOTE: To check whether the account is active or not. When user deletes the account, you can store the information anonymously.
     isActivated: {

@@ -1,6 +1,6 @@
-const { User } = require("../../../../models");
+const { User } = require('../../../../models');
 const { userValidator } = require('../../../validators');
-const { generateRandomCode, sendCodeToEmail, errorHelper, logger, getText, jwtTokenHelper } = require("../../../../utils");
+const { generateRandomCode, sendCodeToEmail, errorHelper, logger, getText, jwtTokenHelper } = require('../../../../utils');
 
 module.exports = async (req, res) => {
     const { error } = userValidator.sendVerificationCode(req.body);
@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
         return res.status(404).json(errorHelper('00036', req));
 
     const emailCode = generateRandomCode(4);
-    await sendCodeToEmail(req.body.email, user.name, emailCode, user.language, "newCode", req, res);
+    await sendCodeToEmail(req.body.email, user.name, emailCode, user.language, 'newCode', req, res);
 
     user.isVerified = false;
 
@@ -26,10 +26,10 @@ module.exports = async (req, res) => {
     const confirmCodeToken = jwtTokenHelper.signRConfirmCodeToken(user._id, emailCode);
     console.log(emailCode);
 
-    logger("00048", user._id, getText('en', '00048'), 'Info', req);
+    logger('00048', user._id, getText('en', '00048'), 'Info', req);
     return res.status(200).json({
         resultMessage: { en: getText('en', '00048'), tr: getText('tr', '00048') },
-        resultCode: "00048",
+        resultCode: '00048',
         userId: user._id,
         confirmToken: confirmCodeToken
     });

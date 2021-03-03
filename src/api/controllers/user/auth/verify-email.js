@@ -1,7 +1,7 @@
-const JWT = require("jsonwebtoken");
-const { User, Token } = require("../../../../models");
-const { userValidator } = require("../../../validators");
-const { errorHelper, getText, logger, jwtTokenHelper } = require("../../../../utils");
+const JWT = require('jsonwebtoken');
+const { User, Token } = require('../../../../models');
+const { userValidator } = require('../../../validators');
+const { errorHelper, getText, logger, jwtTokenHelper } = require('../../../../utils');
 const ipHelper = require('../../../../utils/helpers/ip-helper');
 const { jwtSecretKey } = require('../../../../config');
 
@@ -51,9 +51,9 @@ module.exports = async (req, res) => {
             return res.status(500).json(errorHelper('00057', req, err.message));
         });
 
-    logger("00058", req.user._id, getText('en', '00058'), 'Info', req);
+    logger('00058', req.user._id, getText('en', '00058'), 'Info', req);
     return res.status(200).json({
         resultMessage: { en: getText('en', '00058'), tr: getText('tr', '00058') },
-        resultCode: "00058", accessToken, refreshToken
+        resultCode: '00058', accessToken, refreshToken
     });
 };

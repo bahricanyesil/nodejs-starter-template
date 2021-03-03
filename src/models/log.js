@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 /*NOTE: You can also choose to store logs in a file instead of DB because of speed problem.
         Both file and DB for storing have some advantages and disadvantages. Actually, there is a trade-off.

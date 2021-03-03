@@ -1,7 +1,7 @@
-const bcrypt = require("bcryptjs");
-const { User } = require("../../../../models");
-const { userValidator } = require("../../../validators");
-const { errorHelper, getText, logger } = require("../../../../utils");
+const bcrypt = require('bcryptjs');
+const { User } = require('../../../../models');
+const { userValidator } = require('../../../validators');
+const { errorHelper, getText, logger } = require('../../../../utils');
 
 module.exports = async (req, res) => {
     const { error } = userValidator.forgotPassword(req.body);
@@ -14,9 +14,9 @@ module.exports = async (req, res) => {
             return res.status(500).json(errorHelper('00067', req, err.message));
         });
 
-    logger("00068", req.user._id, getText('en', '00068'), 'Info', req);
+    logger('00068', req.user._id, getText('en', '00068'), 'Info', req);
     return res.status(200).json({
         resultMessage: { en: getText('en', '00068'), tr: getText('tr', '00068') },
-        resultCode: "00068"
+        resultCode: '00068'
     });
 };

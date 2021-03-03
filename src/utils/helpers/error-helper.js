@@ -17,10 +17,10 @@ module.exports = (code, req, errorMessage) => {
     }
 
     return {
-        "resultMessage": {
-            "en": enMessage,
-            "tr": trMessage
+        'resultMessage': {
+            'en': enMessage,
+            'tr': trMessage
         },
-        "resultCode": code
+        'resultCode': code
     };
 };

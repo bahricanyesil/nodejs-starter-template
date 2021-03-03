@@ -1,4 +1,4 @@
-const { User } = require("../../../models");
+const { User } = require('../../../models');
 const { errorHelper } = require('../../../utils');
 
 module.exports = {

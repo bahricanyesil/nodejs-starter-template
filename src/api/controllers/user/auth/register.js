@@ -1,5 +1,5 @@
-const bcrypt = require("bcryptjs");
-const geoip = require("geoip-lite");
+const bcrypt = require('bcryptjs');
+const geoip = require('geoip-lite');
 const { User } = require('../../../../models');
 const { userValidator } = require('../../../validators');
 const { errorHelper, generateRandomCode, sendCodeToEmail, logger, getText, localTextHelper, jwtTokenHelper } = require('../../../../utils');
@@ -9,11 +9,11 @@ module.exports = async (req, res) => {
     const { error } = userValidator.register(req.body);
     if (error) {
         let code = '00025';
-        if (error.details[0].message.includes("email"))
+        if (error.details[0].message.includes('email'))
             code = '00026';
-        else if (error.details[0].message.includes("password"))
+        else if (error.details[0].message.includes('password'))
             code = '00027';
-        else if (error.details[0].message.includes("name"))
+        else if (error.details[0].message.includes('name'))
             code = '00028';
 
         return res.status(400).json(errorHelper(code, req, error.details[0].message));
@@ -36,7 +36,7 @@ module.exports = async (req, res) => {
     let tempName = '';
     let existsUsername = true;
     let name = localTextHelper.turkishToEnglish(req.body.name);
-    if (name.includes(" ")) {
+    if (name.includes(' ')) {
         tempName = name.trim().split(' ').slice(0, 1).join('').toLowerCase();
     } else {
         tempName = name.toLowerCase().trim();
@@ -73,9 +73,9 @@ module.exports = async (req, res) => {
     const confirmCodeToken = jwtTokenHelper.signRConfirmCodeToken(user._id, emailCode);
     console.log(emailCode);
 
-    logger("00035", user._id, getText('en', '00035'), 'Info', req);
+    logger('00035', user._id, getText('en', '00035'), 'Info', req);
     return res.status(200).json({
         resultMessage: { en: getText('en', '00035'), tr: getText('tr', '00035') },
-        resultCode: "00035", user, confirmToken: confirmCodeToken
+        resultCode: '00035', user, confirmToken: confirmCodeToken
     });
 };

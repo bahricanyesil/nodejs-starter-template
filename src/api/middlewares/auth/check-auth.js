@@ -1,16 +1,16 @@
-const JWT = require("jsonwebtoken");
-const mongoose = require("mongoose");
-const { User, Token } = require("../../../models");
+const JWT = require('jsonwebtoken');
+const mongoose = require('mongoose');
+const { User, Token } = require('../../../models');
 const { errorHelper } = require('../../../utils');
 const { jwtSecretKey } = require('../../../config');
 
 module.exports = async (req, res, next) => {
-    let token = req.header("Authorization");
+    let token = req.header('Authorization');
     if (!token)
         return res.status(401).json(errorHelper('00006', req));
 
-    if (token.includes("Bearer"))
-        token = req.header("Authorization").replace("Bearer ", "");
+    if (token.includes('Bearer'))
+        token = req.header('Authorization').replace('Bearer ', '');
 
     try {
         req.user = JWT.verify(token, jwtSecretKey);

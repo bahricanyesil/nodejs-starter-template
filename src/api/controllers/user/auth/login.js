@@ -1,21 +1,21 @@
-const bcrypt = require("bcryptjs");
-const { User, Token } = require("../../../../models");
+const bcrypt = require('bcryptjs');
+const { User, Token } = require('../../../../models');
 const { userValidator } = require('../../../validators');
-const { errorHelper, getText, jwtTokenHelper, logger } = require("../../../../utils");
+const { errorHelper, getText, jwtTokenHelper, logger } = require('../../../../utils');
 
 module.exports = async (req, res) => {
     const { error } = userValidator.login(req.body);
     if (error) {
         let code = '00038';
-        if (error.details[0].message.includes("email"))
+        if (error.details[0].message.includes('email'))
             code = '00039';
-        else if (error.details[0].message.includes("password"))
+        else if (error.details[0].message.includes('password'))
             code = '00040';
 
         return res.status(400).json(errorHelper(code, req, error.details[0].message));
     }
 
-    const user = await User.findOne({ email: req.body.email, isActivated: true, isVerified: true }).select("+password")
+    const user = await User.findOne({ email: req.body.email, isActivated: true, isVerified: true }).select('+password')
         .catch((err) => {
             return res.status(500).json(errorHelper('00041', req, err.message));
         });
@@ -50,9 +50,9 @@ module.exports = async (req, res) => {
         return res.status(500).json(errorHelper('00046', req, err.message));
     });
 
-    logger("00047", user._id, getText('en', '00047'), 'Info', req);
+    logger('00047', user._id, getText('en', '00047'), 'Info', req);
     return res.status(200).json({
         resultMessage: { en: getText('en', '00047'), tr: getText('tr', '00047') },
-        resultCode: "00047", user, accessToken, refreshToken
+        resultCode: '00047', user, accessToken, refreshToken
     });
 };
