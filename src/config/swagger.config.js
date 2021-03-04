@@ -28,69 +28,9 @@ export default {
             "description": "API for users"
         }
     ],
-    components: {
-        "schemas": {
-            "User": {
-                "properties": {
-                    "email": {
-                        "type": "string"
-                    },
-                    "name": {
-                        "type": "string"
-                    },
-                    "username": {
-                        "type": "string"
-                    },
-                    "type": {
-                        "type": "string",
-                        "enum": ["admin", "user", "reader", "creator"]
-                    },
-                    "language": {
-                        "type": "string",
-                        "enum": ["tr", "en"]
-                    },
-                    "isPremium": {
-                        "type": "boolean"
-                    },
-                    "gender": {
-                        "type": "string",
-                        "enum": ["male", "female", "other"]
-                    },
-                    "countryCode": {
-                        "type": "String"
-                    },
-                    "timezone": {
-                        "type": "number"
-                    },
-                    "birthDate": {
-                        "type": "String"
-                    },
-                    "photoUrl": {
-                        "type": "String"
-                    },
-                    "isActivated": {
-                        "type": "boolean"
-                    },
-                    "isVerified": {
-                        "type": "boolean"
-                    },
-                    "deviceId": {
-                        "type": "String"
-                    },
-                    "platform": {
-                        "type": "string",
-                        "enum": ["Android", "IOS"]
-                    },
-                    "deletedAt": {
-                        "type": "String"
-                    },
-                }
-            }
-        }
-    },
     apis: [
-        "src/models/index.js/*.js",
-        "src/utils/index.js/helpers/*.js",
+        "src/models/*.js",
+        "src/utils/helpers/*.js",
         "src/api/controllers/user/*.js",
         "src/api/controllers/user/edit/*.js",
         "src/api/controllers/user/auth/*.js"
