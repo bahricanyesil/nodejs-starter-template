@@ -204,7 +204,7 @@ const { auth, imageUpload } = require('../middlewares');
 router.put('/', auth, imageUpload, userController.editUser);
 ```
 
-These routes require a valid JWT access token in the Authorization request header using the Bearer schema. If the request does not contain a valid access token, an error is thrown.
+These routes require a valid JWT access token in the Authorization request header. If the request does not contain a valid access token, an error is thrown.
 
 ### Generating Access Tokens:
 
