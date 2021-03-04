@@ -3,9 +3,9 @@ You can use this template when you're starting a new project. It contains genera
 
 A boilerplate/starter project for quickly building RESTful APIs using Node.js, Express, and Mongoose.
 
-You will get a production-ready Node.js app installed and configured on your machine. The app comes with many built-in features, such as authentication using JWT, request validation, error handling, logging, image uploading (to AWS bucket), email sending, etc.
+You will get a production-ready Node.js app installed and configured on your machine. The app comes with many built-in features, such as authentication using JWT, request validation, error handling, logging, API documentation, image uploading (to AWS bucket), email sending, etc.
 
-Social logins (Google&Apple), unit and integration tests, in-app purchases (Google&Apple), daily crons, notifications (firebase), API documentation, pagination, etc could be added in the future. Get ready for more, star it and wait!
+Social logins (Google&Apple), unit and integration tests, in-app purchases (Google&Apple), daily crons, notifications (firebase), pagination, etc could be added in the future. Get ready for more, star it and wait!
 
 <br />
 
