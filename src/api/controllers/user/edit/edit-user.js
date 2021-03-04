@@ -1,18 +1,19 @@
-const AWS = require('aws-sdk');
-const { User } = require('../../../../models');
-const { userValidator } = require('../../../validators');
-const { errorHelper, logger, getText, localTextHelper } = require('../../../../utils');
-const { awsAccessKey, awsSecretAccessKey, awsRegion, bucketName } = require('../../../../config');
+import { User } from '../../../../models/index.js';
+import { validateEditUser } from '../../../validators/user.validator.js';
+import { errorHelper, logger, getText, turkishToEnglish } from '../../../../utils/index.js';
+import { awsAccessKey, awsSecretAccessKey, awsRegion, bucketName } from '../../../../config/index.js';
+import aws from 'aws-sdk';
+const { S3 } = aws;
 
-const s3 = new AWS.S3({
+const s3 = new S3({
     accessKeyId: awsAccessKey,
     secretAccessKey: awsSecretAccessKey,
     region: awsRegion,
     signatureVersion: 'v4',
 });
 
-module.exports = async (req, res) => {
-    const { error } = userValidator.editUser(req.body);
+export default async (req, res) => {
+    const { error } = validateEditUser(req.body);
     if (error) {
         let code = '00077';
         const message = error.details[0].message;
@@ -47,7 +48,7 @@ module.exports = async (req, res) => {
     if (req.file) {
         const params = {
             Bucket: bucketName,
-            Key: localTextHelper.turkishToEnglish(user.name).replace(/\s/g, '').toLowerCase() + '/' + user._id + '/' + Date(Date.now()).toLowerCase().substring(0, 15).replace(/\s/g, '-'),
+            Key: turkishToEnglish(user.name).replace(/\s/g, '').toLowerCase() + '/' + user._id + '/' + Date(Date.now()).toLowerCase().substring(0, 15).replace(/\s/g, '-'),
             Body: req.file.buffer,
             ContentType: req.file.mimetype,
         };

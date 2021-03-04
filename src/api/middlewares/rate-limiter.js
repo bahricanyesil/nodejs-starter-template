@@ -1,7 +1,7 @@
-const { RateLimiterMongo } = require('rate-limiter-flexible');
-const mongoose = require('mongoose');
-const { errorHelper } = require('../../utils');
-const { dbUri } = require('../../config');
+import { RateLimiterMongo } from 'rate-limiter-flexible';
+import mongoose from 'mongoose';
+import { errorHelper } from '../../utils/index.js';
+import { dbUri } from '../../config/index.js';
 
 const mongoOpts = {
     useCreateIndex: true,
@@ -19,7 +19,7 @@ const opts = {
     duration: 60 // per y second by IP
 };
 
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
     const rateLimiterMongo = new RateLimiterMongo(opts);
     rateLimiterMongo.consume(req.ip)
         .then(() => {

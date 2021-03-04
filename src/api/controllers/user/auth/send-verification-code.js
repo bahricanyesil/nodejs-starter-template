@@ -1,9 +1,9 @@
-const { User } = require('../../../../models');
-const { userValidator } = require('../../../validators');
-const { generateRandomCode, sendCodeToEmail, errorHelper, logger, getText, jwtTokenHelper } = require('../../../../utils');
+import { User } from '../../../../models/index.js';
+import { validateSendVerificationCode } from '../../../validators/user.validator.js';
+import { generateRandomCode, sendCodeToEmail, errorHelper, logger, getText, signConfirmCodeToken } from '../../../../utils/index.js';
 
-module.exports = async (req, res) => {
-    const { error } = userValidator.sendVerificationCode(req.body);
+export default async (req, res) => {
+    const { error } = validateSendVerificationCode(req.body);
     if (error) return res.status(400).json(errorHelper('00029', req, error.details[0].message));
 
     const user = await User.findOne({ email: req.body.email, isActivated: true })
@@ -23,8 +23,8 @@ module.exports = async (req, res) => {
         return res.status(500).json(errorHelper('00037', req, err.message));
     });
 
-    const confirmCodeToken = jwtTokenHelper.signRConfirmCodeToken(user._id, emailCode);
-
+    const confirmCodeToken = signConfirmCodeToken(user._id, emailCode);
+console.log(emailCode);
     logger('00048', user._id, getText('en', '00048'), 'Info', req);
     return res.status(200).json({
         resultMessage: { en: getText('en', '00048'), tr: getText('tr', '00048') },

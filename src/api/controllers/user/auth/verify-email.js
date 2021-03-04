@@ -1,16 +1,17 @@
-const JWT = require('jsonwebtoken');
-const { User, Token } = require('../../../../models');
-const { userValidator } = require('../../../validators');
-const { errorHelper, getText, logger, jwtTokenHelper } = require('../../../../utils');
-const ipHelper = require('../../../../utils/helpers/ip-helper');
-const { jwtSecretKey } = require('../../../../config');
+import { User, Token } from '../../../../models/index.js';
+import { validateVerifyEmail } from '../../../validators/user.validator.js';
+import { errorHelper, getText, logger, signAccessToken, signRefreshToken } from '../../../../utils/index.js';
+import ipHelper from '../../../../utils/helpers/ip-helper.js';
+import { jwtSecretKey } from '../../../../config/index.js';
+import pkg from 'jsonwebtoken';
+const { verify } = pkg;
 
-module.exports = async (req, res) => {
-    const { error } = userValidator.verifyEmail(req.body);
+export default async (req, res) => {
+    const { error } = validateVerifyEmail(req.body);
     if (error) return res.status(400).json(errorHelper('00053', req, error.details[0].message));
 
     try {
-        req.user = JWT.verify(req.body.token, jwtSecretKey);
+        req.user = verify(req.body.token, jwtSecretKey);
     } catch (err) {
         return res.status(400).json(errorHelper('00055', req, err.message));
     }
@@ -31,8 +32,8 @@ module.exports = async (req, res) => {
             return res.status(500).json(errorHelper('00056', req, err.message));
         });
 
-    const accessToken = jwtTokenHelper.signAccessToken(req.user._id);
-    const refreshToken = jwtTokenHelper.signRefreshToken(req.user._id);
+    const accessToken = signAccessToken(req.user._id);
+    const refreshToken = signRefreshToken(req.user._id);
     await Token.updateOne(
         { userId: req.user._id },
         {

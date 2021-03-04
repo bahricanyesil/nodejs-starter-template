@@ -1,7 +1,7 @@
-const { Log } = require('../models');
-const ipHelper = require('./helpers/ip-helper');
+import { Log } from '../models/index.js';
+import ipHelper from './helpers/ip-helper.js';
 
-module.exports = async (code, userId, errorMessage, level, req) => {
+export default async (code, userId, errorMessage, level, req) => {
     let ip = 'no-ip';
     if(req !== '') ip = ipHelper(req);
     let log = new Log({

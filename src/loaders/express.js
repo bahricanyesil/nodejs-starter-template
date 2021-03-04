@@ -1,16 +1,16 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const compression = require('compression');
-const morgan = require('morgan');
-const helmet = require('helmet');
-const api = require('./../config');
-const routes = require('./../api/routes');
-const { logger } = require('../utils');
-const { rateLimiter } = require('../api/middlewares');
-const { jwtSecretKey } = require('../config');
+import express from 'express'
+import cors from 'cors';
+import compression from 'compression';
+import morgan from 'morgan';
+import helmet from 'helmet';
+import { prefix } from './../config/index.js';
+import routes from './../api/routes/index.js';
+import { logger } from '../utils/index.js';
+import { rateLimiter } from '../api/middlewares/index.js';
+import { jwtSecretKey } from '../config/index.js';
+import bodyParser from 'body-parser';
 
-module.exports = async (app) => {
+export default (app) => {
     process.on('uncaughtException', async (error) => {
         // console.log(error);
         logger('00001', '', error.message, 'Uncaught Exception', '');
@@ -28,17 +28,17 @@ module.exports = async (app) => {
 
     app.enable('trust proxy');
     app.use(cors());
+    app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
     app.use(morgan('dev'));
     app.use(helmet());
     app.use(compression());
-    app.use(bodyParser.urlencoded({ extended: false }));
     app.use(express.static('public'));
     app.disable('x-powered-by');
     app.disable('etag');
 
     app.use(rateLimiter);
-    app.use(api.prefix, routes);
+    app.use(prefix, routes);
 
     app.get('/', (_req, res) => {
         return res.status(200).json({

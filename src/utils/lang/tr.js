@@ -1,4 +1,4 @@
- {
+export default {
     "verificationCodeTitle": "Doğrulama Kodu - (Uygulama Adı)",
     "verificationCodeBody": "İşte doğrulama kodun:",
     "welcomeCode": "(Uygulama Adı)\"na hoş geldin,",

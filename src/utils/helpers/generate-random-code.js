@@ -1,3 +1,3 @@
-const randomstring = require('randomstring');
+import { generate } from 'randomstring';
 
-module.exports = (length) => randomstring.generate({ length, charset: 'numeric' });
+export default (length) => generate({ length, charset: 'numeric' });

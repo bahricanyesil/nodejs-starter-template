@@ -1,13 +1,14 @@
-const bcrypt = require('bcryptjs');
-const { User, Token } = require('../../../models');
-const { generateRandomCode, errorHelper, getText, logger } = require('../../../utils');
+import { User, Token } from '../../../models/index.js';
+import { generateRandomCode, errorHelper, getText, logger } from '../../../utils/index.js';
+import bcrypt from 'bcryptjs';
+const { hash } = bcrypt;
 
-module.exports = async (req, res) => {
+export default async (req, res) => {
     const anon = 'anon' + generateRandomCode(8);
-    const hash = await bcrypt.hash(anon, 10);
+    const hashed = await hash(anon, 10);
     await User.updateOne({ _id: req.user._id }, {
         $set: {
-            name: anon, username: anon, email: anon + '@anon.com', password: hash,
+            name: anon, username: anon, email: anon + '@anon.com', password: hashed,
             photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Node.js_logo.svg/1200px-Node.js_logo.svg.png',
             isActivated: false, deletedAt: Date.now()
         }

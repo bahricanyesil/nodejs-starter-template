@@ -1,12 +1,14 @@
-const bcrypt = require('bcryptjs');
-const geoip = require('geoip-lite');
-const { User } = require('../../../../models');
-const { userValidator } = require('../../../validators');
-const { errorHelper, generateRandomCode, sendCodeToEmail, logger, getText, localTextHelper, jwtTokenHelper } = require('../../../../utils');
-const ipHelper = require('../../../../utils/helpers/ip-helper');
+import { User } from '../../../../models/index.js';
+import { validateRegister } from '../../../validators/user.validator.js';
+import { errorHelper, generateRandomCode, sendCodeToEmail, logger, getText, turkishToEnglish, signConfirmCodeToken } from '../../../../utils/index.js';
+import ipHelper from '../../../../utils/helpers/ip-helper.js';
+import bcrypt from 'bcryptjs';
+const { hash } = bcrypt;
+import geoip from 'geoip-lite';
+const { lookup } = geoip;
 
-module.exports = async (req, res) => {
-    const { error } = userValidator.register(req.body);
+export default async (req, res) => {
+    const { error } = validateRegister(req.body);
     if (error) {
         let code = '00025';
         if (error.details[0].message.includes('email'))
@@ -27,7 +29,7 @@ module.exports = async (req, res) => {
     if (exists)
         return res.status(409).json(errorHelper('00032', req));
 
-    const hash = await bcrypt.hash(req.body.password, 10);
+    const hashed = await hash(req.body.password, 10);
 
     const emailCode = generateRandomCode(4);
     await sendCodeToEmail(req.body.email, req.body.name, emailCode, req.body.language, 'register', req, res);
@@ -35,7 +37,7 @@ module.exports = async (req, res) => {
     let username = '';
     let tempName = '';
     let existsUsername = true;
-    let name = localTextHelper.turkishToEnglish(req.body.name);
+    let name = turkishToEnglish(req.body.name);
     if (name.includes(' ')) {
         tempName = name.trim().split(' ').slice(0, 1).join('').toLowerCase();
     } else {
@@ -49,11 +51,11 @@ module.exports = async (req, res) => {
             });
     } while (existsUsername);
 
-    const geo = geoip.lookup(ipHelper(req));
+    const geo = lookup(ipHelper(req));
 
     let user = new User({
         email: req.body.email,
-        password: hash,
+        password: hashed,
         name: name,
         username: username,
         language: req.body.language,
@@ -70,7 +72,7 @@ module.exports = async (req, res) => {
 
     user.password = null;
 
-    const confirmCodeToken = jwtTokenHelper.signRConfirmCodeToken(user._id, emailCode);
+    const confirmCodeToken = signConfirmCodeToken(user._id, emailCode);
 
     logger('00035', user._id, getText('en', '00035'), 'Info', req);
     return res.status(200).json({

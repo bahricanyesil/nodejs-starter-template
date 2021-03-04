@@ -1,7 +1,7 @@
-const { User } = require('../../../models');
-const { errorHelper, logger, getText } = require('../../../utils');
+import { User } from '../../../models/index.js';
+import { errorHelper, logger, getText } from '../../../utils/index.js';
 
-module.exports = async (req, res) => {
+export default async (req, res) => {
     const user = await User.findById(req.user._id).catch(err => {
         return res.status(500).json(errorHelper('00088', req, err.message));
     });

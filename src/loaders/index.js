@@ -1,7 +1,7 @@
-const mongooseLoader = require('./mongoose');
-const expressLoader = require('./express');
+import mongooseLoader from './mongoose.js';
+import expressLoader from './express.js';
 
-module.exports = async (app) => {
+export default async (app) => {
     await mongooseLoader();
-    await expressLoader(app);
+    expressLoader(app);
 }

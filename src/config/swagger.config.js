@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     swaggerDefinition: {
         openapi: '3.0.0',
         info: {
@@ -89,8 +89,8 @@ module.exports = {
         }
     },
     apis: [
-        "src/models/*.js",
-        "src/utils/helpers/*.js",
+        "src/models/index.js/*.js",
+        "src/utils/index.js/helpers/*.js",
         "src/api/controllers/user/*.js",
         "src/api/controllers/user/edit/*.js",
         "src/api/controllers/user/auth/*.js"

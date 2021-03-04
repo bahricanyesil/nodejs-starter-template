@@ -1,9 +1,7 @@
-const userModel = require('./user');
-const tokenModel = require('./token');
-const logModel = require('./log');
+import userModel from './user.js';
+import tokenModel from './token.js';
+import logModel from './log.js';
 
-module.exports = {
-    User: userModel,
-    Token: tokenModel,
-    Log: logModel
-};
+export const User = userModel;
+export const Token = tokenModel;
+export const Log = logModel;

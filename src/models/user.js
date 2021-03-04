@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+const { Schema, model } = mongoose;
 
-const userSchema = mongoose.Schema({
+const userSchema = new Schema({
     email: {
         type: String,
         required: true,
@@ -79,9 +80,8 @@ const userSchema = mongoose.Schema({
         timestamps: true
     });
 
-const User = mongoose.model('User', userSchema);
-
-module.exports = User;
+const User = model('User', userSchema)
+export default User
 
 /**
 * @swagger

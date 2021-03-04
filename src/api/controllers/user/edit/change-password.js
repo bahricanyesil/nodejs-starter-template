@@ -1,10 +1,11 @@
-const bcrypt = require('bcryptjs');
-const { User } = require('../../../../models');
-const { userValidator } = require('../../../validators');
-const { errorHelper, logger, getText } = require('../../../../utils');
+import { User } from '../../../../models/index.js';
+import { validateChangePassword } from '../../../validators/user.validator.js';
+import { errorHelper, logger, getText } from '../../../../utils/index.js';
+import bcrypt from 'bcryptjs';
+const { hash, compare } = bcrypt;
 
-module.exports = async (req, res) => {
-    const { error } = userValidator.changePassword(req.body);
+export default async (req, res) => {
+    const { error } = validateChangePassword(req.body);
     if (error) return res.status(400).json(errorHelper('00069', req, error.details[0].message));
 
     if (req.body.oldPassword === req.body.newPassword) return res.status(400).json(errorHelper('00073', req));
@@ -14,19 +15,19 @@ module.exports = async (req, res) => {
             return res.status(500).json(errorHelper('00070', req, err.message));
         });
 
-    const match = await bcrypt.compare(req.body.oldPassword, user.password)
+    const match = await compare(req.body.oldPassword, user.password)
         .catch((err) => {
             return res.status(500).json(errorHelper('00071', req, err.message));
         });
 
     if (!match) return res.status(400).json(errorHelper('00072', req));
 
-    const hash = await bcrypt.hash(req.body.newPassword, 10)
+    const hashed = await hash(req.body.newPassword, 10)
         .catch((err) => {
             return res.status(500).json(errorHelper('00074', req, err.message));
         });
 
-    user.password = hash;
+    user.password = hashed;
 
     await user.save().catch((err) => {
         return res.status(500).json(errorHelper('00075', req, err.message));

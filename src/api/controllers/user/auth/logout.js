@@ -1,7 +1,7 @@
-const { Token } = require('../../../../models');
-const { errorHelper, getText, logger } = require('../../../../utils');
+import { Token } from '../../../../models/index.js';
+import { errorHelper, getText, logger } from '../../../../utils/index.js';
 
-module.exports = async (req, res) => {
+export default async (req, res) => {
     await Token.updateOne({ userId: req.user._id },
         {
             $set: { status: false, expiresIn: Date.now() }

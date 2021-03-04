@@ -1,10 +1,12 @@
-const JWT = require('jsonwebtoken');
-const mongoose = require('mongoose');
-const { User, Token } = require('../../../models');
-const { errorHelper } = require('../../../utils');
-const { jwtSecretKey } = require('../../../config');
+import { User, Token } from '../../../models/index.js';
+import { errorHelper } from '../../../utils/index.js';
+import { jwtSecretKey } from '../../../config/index.js';
+import pkg from 'mongoose';
+const { Types } = pkg;
+import jwt from 'jsonwebtoken';
+const { verify } = jwt;
 
-module.exports = async (req, res, next) => {
+export default async (req, res, next) => {
     let token = req.header('Authorization');
     if (!token)
         return res.status(401).json(errorHelper('00006', req));
@@ -13,8 +15,8 @@ module.exports = async (req, res, next) => {
         token = req.header('Authorization').replace('Bearer ', '');
 
     try {
-        req.user = JWT.verify(token, jwtSecretKey);
-        if (!mongoose.Types.ObjectId.isValid(req.user._id))
+        req.user = verify(token, jwtSecretKey);
+        if (!Types.ObjectId.isValid(req.user._id))
             return res.status(400).json(errorHelper('00007', req));
 
         const exists = await User.exists({ _id: req.user._id, isVerified: true, isActivated: true })

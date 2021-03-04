@@ -1,29 +1,16 @@
 // AUTH
-const register = require('./auth/register');
-const login = require('./auth/login');
-const logout = require('./auth/logout');
-const verifyEmail = require('./auth/verify-email');
-const refreshToken = require('./auth/refresh-token');
-const forgotPassword = require('./auth/forgot-password');
-const sendVerificationCode = require('./auth/send-verification-code');
+export { default as register } from './auth/register.js'
+export { default as login } from './auth/login.js'
+export { default as logout } from './auth/logout.js'
+export { default as verifyEmail } from './auth/verify-email.js'
+export { default as refreshToken } from './auth/refresh-token.js'
+export { default as forgotPassword } from './auth/forgot-password.js'
+export { default as sendVerificationCode } from './auth/send-verification-code.js'
 
 // EDIT
-const changePassword = require('./edit/change-password');
-const editUser = require('./edit/edit-user');
+export { default as changePassword } from './edit/change-password.js'
+export { default as editUser } from './edit/edit-user.js'
 
-const getUser = require('./get-user');
-const deleteUser = require('./delete-user');
-
-module.exports = {
-    register,
-    login,
-    logout,
-    verifyEmail,
-    refreshToken,
-    sendVerificationCode,
-    forgotPassword,
-    changePassword,
-    editUser,
-    getUser,
-    deleteUser
-};
+// OTHER
+export { default as getUser } from './get-user.js'
+export { default as deleteUser } from './delete-user.js'

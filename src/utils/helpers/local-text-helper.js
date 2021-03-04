@@ -1,5 +1,5 @@
-module.exports = {
-    turkishToEnglish: (text) => text.replace(/Ğ/gim, 'g')
+export function turkishToEnglish(text) {
+    return text.replace(/Ğ/gim, 'g')
         .replace(/Ü/gim, 'u')
         .replace(/Ş/gim, 's')
         .replace(/I/gim, 'i')
@@ -11,6 +11,5 @@ module.exports = {
         .replace(/ş/gim, 's')
         .replace(/ı/gim, 'i')
         .replace(/ö/gim, 'o')
-        .replace(/ç/gim, 'c'),
-
+        .replace(/ç/gim, 'c');
 }
