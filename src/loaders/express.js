@@ -12,13 +12,13 @@ const { jwtSecretKey } = require('../config');
 
 module.exports = async (app) => {
     process.on('uncaughtException', async (error) => {
-        await logger('00001', '', error.message, 'Uncaught Exception', '');
-        process.exit(1);
+        // console.log(error);
+        logger('00001', '', error.message, 'Uncaught Exception', '');
     });
 
     process.on('unhandledRejection', async (ex) => {
-        await logger('00002', '', ex.message, 'Unhandled Rejection', '');
-        process.exit(1);
+        // console.log(ex);
+        logger('00002', '', ex.message, 'Unhandled Rejection', '');
     });
 
     if (!jwtSecretKey) {

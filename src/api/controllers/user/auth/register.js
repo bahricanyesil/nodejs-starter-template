@@ -71,7 +71,6 @@ module.exports = async (req, res) => {
     user.password = null;
 
     const confirmCodeToken = jwtTokenHelper.signRConfirmCodeToken(user._id, emailCode);
-    console.log(emailCode);
 
     logger('00035', user._id, getText('en', '00035'), 'Info', req);
     return res.status(200).json({

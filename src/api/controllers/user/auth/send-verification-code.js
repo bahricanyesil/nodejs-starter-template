@@ -24,8 +24,7 @@ module.exports = async (req, res) => {
     });
 
     const confirmCodeToken = jwtTokenHelper.signRConfirmCodeToken(user._id, emailCode);
-    console.log(emailCode);
-
+    
     logger('00048', user._id, getText('en', '00048'), 'Info', req);
     return res.status(200).json({
         resultMessage: { en: getText('en', '00048'), tr: getText('tr', '00048') },
