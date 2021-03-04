@@ -154,7 +154,8 @@ To view all APIs and learn all the details required for the requests and respons
 
 ### API Endpoints
 
-List of available routes:
+List of available routes:  
+  
 **User Auth Routes**:
 - Register - POST /api/user
 - Login - POST /api/user/login
