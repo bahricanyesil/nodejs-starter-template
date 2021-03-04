@@ -25,6 +25,7 @@ Social logins (Google&Apple), unit and integration tests, in-app purchases (Goog
 - [Features](https://github.com/bahricanyesil/nodejs-starter-template#features)
 - [Environment Variables](https://github.com/bahricanyesil/nodejs-starter-template#environment-variables)
 - [Project Structure](https://github.com/bahricanyesil/nodejs-starter-template#project-structure)
+- [API Documentation](https://github.com/bahricanyesil/nodejs-starter-template#api-documentation)
 - [Error Handling](https://github.com/bahricanyesil/nodejs-starter-template#error-handling)
 - [Validation](https://github.com/bahricanyesil/nodejs-starter-template#validation)
 - [Authentication](https://github.com/bahricanyesil/nodejs-starter-template#authentication)
@@ -144,6 +145,32 @@ AWS_SECRET_ACCESS_KEY=AWS_SECRET_ACCESS_KEY_HERE
 ├─ package-lock.json
 └─ package.json
 ```
+
+<br />
+
+## [API Documentation](#api-documentation)
+
+To view all APIs and learn all the details required for the requests and responses, run the server and go to http://localhost:3000/api/docs/ in your browser. [Swagger](https://swagger.io/) automatically creates this page by using the definitions and descriptions written as comments in the required files.
+
+### API Endpoints
+
+List of available routes:
+**User Auth Routes**:
+- Register - POST /api/user
+- Login - POST /api/user/login
+- Logout - POST /api/user/logout
+- Verify Email - POST /api/user/verify-email
+- Refresh Token - POST /api/user/refresh-token
+- Forgot Password - POST /api/user/forgot-password
+- Send Verification Code - POST /api/user/send-verification-code
+
+**User Edit Routes**:
+- Edit User - PUT /api/user
+- Change Password - POST /api/user/change-password
+
+**Other User Routes**:
+- Get User - GET /api/user
+- Delete User - DELETE /api/user
 
 <br />
 
