@@ -1,3 +1,4 @@
+const swaggerConfig = require('./swagger.config');
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -15,5 +16,7 @@ module.exports = {
     awsSecretAccessKey: AWS_SECRET_ACCESS_KEY,
     awsRegion: AWS_REGION,
     bucketName: BUCKET_NAME,
-    prefix: '/api'
+    prefix: '/api',
+    specs: "/docs",
+    swaggerConfig: swaggerConfig
 }

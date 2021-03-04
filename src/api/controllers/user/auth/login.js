@@ -56,3 +56,54 @@ module.exports = async (req, res) => {
         resultCode: '00047', user, accessToken, refreshToken
     });
 };
+
+/**
+ * @swagger
+ * /user/login:
+ *    post:
+ *      summary: Login
+ *      requestBody:
+ *        description: Email and password information to login
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                email:
+ *                  type: string
+ *                password:
+ *                  type: string
+ *      tags:
+ *        - User
+ *      responses:
+ *        "200":
+ *          description: You logged in successfully.
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          resultMessage:
+ *                              $ref: '#/components/schemas/ResultMessage'
+ *                          resultCode:
+ *                              $ref: '#/components/schemas/ResultCode'
+ *                          user:
+ *                              $ref: '#/components/schemas/User'
+ *                          accessToken:
+ *                              type: string
+ *                          refreshToken:
+ *                              type: string
+ *        "400":
+ *          description: Please provide all the required fields!
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/Result'
+ *        "500":
+ *          description: An internal server error occurred, please try again.
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/Result'
+ */

@@ -24,12 +24,56 @@ module.exports = async (req, res) => {
     });
 
     const confirmCodeToken = jwtTokenHelper.signRConfirmCodeToken(user._id, emailCode);
-    
+
     logger('00048', user._id, getText('en', '00048'), 'Info', req);
     return res.status(200).json({
         resultMessage: { en: getText('en', '00048'), tr: getText('tr', '00048') },
         resultCode: '00048',
-        userId: user._id,
         confirmToken: confirmCodeToken
     });
 };
+
+/**
+ * @swagger
+ * /user/send-verification-code:
+ *    post:
+ *      summary: Sends a verification code to the user.
+ *      requestBody:
+ *        description: Email of the user
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                email:
+ *                  type: string
+ *      tags:
+ *        - User
+ *      responses:
+ *        "200":
+ *          description: The code is sent to your email successfully.
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          resultMessage:
+ *                              $ref: '#/components/schemas/ResultMessage'
+ *                          resultCode:
+ *                              $ref: '#/components/schemas/ResultCode'
+ *                          confirmToken:
+ *                              type: string
+ *        "400":
+ *          description: Please provide a valid email!
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/Result'
+ *        "500":
+ *          description: An internal server error occurred, please try again.
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/Result'
+ */

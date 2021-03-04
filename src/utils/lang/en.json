@@ -6,7 +6,7 @@
     "00006": "Access denied. No token provided.",
     "00007": "Invalid user id.",
     "00008": "An internal server error occurred, please try again.",
-    "00009": "Could not find verified user with the given token and id. Be sure that the account is verified and activated.",
+    "00009": "Could not find verified user with the given token and id. Be sure that the account was verified and activated.",
     "00011": "Your session is expired, please log in again.",
     "00012": "Invalid token. the token may have expired.",
     "00017": "Access denied. You do not have permission to access.",
@@ -48,7 +48,7 @@
     "00069": "Please provide old and new passwords that are longer than 6 letters and shorter than 20 letters.",
     "00072": "Your old password does not match with the password you entered, please enter the correct password.",
     "00073": "Your new password should not be same with the old one, please try a different password.",
-    "00076": "Your password is changed successfully.",
+    "00076": "Your password was changed successfully.",
     "00077": "Please provide a name that is longer than 3 letters and shorter than 30 letters.",
     "00078": "Valid gender options: female-male-other, plese provide one of them.",
     "00079": "Valid language options: tr-en, plese provide one of them.",
@@ -56,6 +56,6 @@
     "00081": "Please provide a username that is longer than 3 letters and shorter than 15 letters.",
     "00084": "There is already a user with this username, please enter another.",
     "00086": "Your profile information was changed successfully.",
-    "00089": "The user information is gotten successfully.",
+    "00089": "The user information has gotten successfully.",
     "00092": "Your account was deleted successfully."
 }

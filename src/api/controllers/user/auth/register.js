@@ -78,3 +78,64 @@ module.exports = async (req, res) => {
         resultCode: '00035', user, confirmToken: confirmCodeToken
     });
 };
+
+/**
+ * @swagger
+ * /user:
+ *    post:
+ *      summary: Registers the user
+ *      requestBody:
+ *        description: All required information about the user
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                email:
+ *                  type: string
+ *                password:
+ *                  type: string
+ *                name:
+ *                  type: string
+ *                language:
+ *                  type: string
+ *                  enum: ['tr', 'en']
+ *                platform:
+ *                  type: string
+ *                  enum: ['Android', 'IOS']
+ *                timezone:
+ *                  type: number
+ *                deviceId:
+ *                  type: string
+ *      tags:
+ *        - User
+ *      responses:
+ *        "200":
+ *          description: You registered successfully.
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          resultMessage:
+ *                              $ref: '#/components/schemas/ResultMessage'
+ *                          resultCode:
+ *                              $ref: '#/components/schemas/ResultCode'
+ *                          user:
+ *                              $ref: '#/components/schemas/User'
+ *                          confirmToken:
+ *                              type: string
+ *        "400":
+ *          description: Please provide all the required fields!
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/Result'
+ *        "500":
+ *          description: An internal server error occurred, please try again.
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/Result'
+ */
