@@ -29,7 +29,7 @@ module.exports = async (req, res) => {
  *        - User
  *      responses:
  *        "200":
- *          description: The user information is gotten successfully.
+ *          description: The user information has gotten successfully.
  *          content:
  *              application/json:
  *                  schema:

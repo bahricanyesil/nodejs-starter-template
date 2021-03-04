@@ -123,7 +123,7 @@ module.exports = User;
 *           type: string
 *         platform:
 *           type: string
-*           enum: ['male', 'Android', 'IOS']
+*           enum: ['Android', 'IOS']
 *         deletedAt:
 *           type: string
 */

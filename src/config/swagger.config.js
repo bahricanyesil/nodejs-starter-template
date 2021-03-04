@@ -6,12 +6,12 @@ module.exports = {
             version: '1.0.0',
             description: 'The API documentation of a boilerplate/starter project for quickly building RESTful APIs using Node.js, Express, and Mongoose.',
             license: {
-                name: 'Unknown',
+                name: 'MIT',
                 url: 'https://choosealicense.com/licenses/mit/',
             },
             contact: {
-                name: 'Nodejs-Starter-Template',
-                url: 'https://github.com/bahricanyesil/nodejs-starter-template',
+                name: 'Bahrican Yesil',
+                url: 'https://github.com/bahricanyesil',
                 email: 'bahricanyesil@gmail.com',
             },
         },

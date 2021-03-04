@@ -63,7 +63,7 @@ module.exports = async (req, res) => {
  *    post:
  *      summary: Login
  *      requestBody:
- *        description: New password
+ *        description: Email and password information to login
  *        required: true
  *        content:
  *          application/json:
@@ -78,7 +78,7 @@ module.exports = async (req, res) => {
  *        - User
  *      responses:
  *        "200":
- *          description: The new password was created successfully.
+ *          description: You logged in successfully.
  *          content:
  *              application/json:
  *                  schema:

@@ -129,7 +129,7 @@ module.exports = async (req, res) => {
  *                          photoUrl:
  *                              type: string
  *        "400":
- *          description: Please provide old and new passwords that are longer than 6 letters and shorter than 20 letters.
+ *          description: Please provide valid values for each key you want to change.
  *          content:
  *              application/json:
  *                  schema:

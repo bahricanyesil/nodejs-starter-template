@@ -66,7 +66,7 @@ module.exports = async (req, res) => {
  *        - User
  *      responses:
  *        "200":
- *          description: Your password is changed successfully.
+ *          description: Your password was changed successfully.
  *          content:
  *              application/json:
  *                  schema:
