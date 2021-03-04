@@ -74,3 +74,76 @@ module.exports = async (req, res) => {
         });
     }
 };
+
+/**
+ * @swagger
+ * /user:
+ *    put:
+ *      summary: Edit the Profile Information
+ *      parameters:
+ *        - in: header
+ *          name: Authorization
+ *          schema:
+ *            type: string
+ *          description: Put access token here
+ *        - in: formData
+ *          name: image
+ *          required: false
+ *          schema:
+ *            type: file
+ *          description: Image file here
+ *      requestBody:
+ *        description: Some of the user profile information to change
+ *        required: false
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                name:
+ *                  type: string
+ *                username:
+ *                  type: string
+ *                language:
+ *                  type: string
+ *                  enum: ['tr', 'en']
+ *                gender:
+ *                  type: string
+ *                  enum: ['male', 'female', 'other']
+ *                birthDate:
+ *                  type: string
+ *      tags:
+ *        - User
+ *      responses:
+ *        "200":
+ *          description: Your profile information was changed successfully.
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          resultMessage:
+ *                              $ref: '#/components/schemas/ResultMessage'
+ *                          resultCode:
+ *                              $ref: '#/components/schemas/ResultCode'
+ *                          photoUrl:
+ *                              type: string
+ *        "400":
+ *          description: Please provide old and new passwords that are longer than 6 letters and shorter than 20 letters.
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/Result'
+ *        "401":
+ *          description: Invalid token.
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/Result'
+ *        "500":
+ *          description: An internal server error occurred, please try again.
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/Result'
+ */

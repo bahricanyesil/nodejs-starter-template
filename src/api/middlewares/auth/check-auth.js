@@ -31,10 +31,10 @@ module.exports = async (req, res, next) => {
             });
 
         if (!tokenExists)
-            return res.status(403).json(errorHelper('00011', req));
+            return res.status(401).json(errorHelper('00011', req));
 
         next();
     } catch (err) {
-        return res.status(403).json(errorHelper('00012', req, err.message));
+        return res.status(401).json(errorHelper('00012', req, err.message));
     }
 };

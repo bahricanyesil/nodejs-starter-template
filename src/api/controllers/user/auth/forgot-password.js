@@ -20,3 +20,54 @@ module.exports = async (req, res) => {
         resultCode: '00068'
     });
 };
+
+
+/**
+ * @swagger
+ * /user/forgot-password:
+ *    post:
+ *      summary: Saves the Password when Forgot
+ *      parameters:
+ *        - in: header
+ *          name: Authorization
+ *          schema:
+ *            type: string
+ *          description: Put access token here
+ *      requestBody:
+ *        description: New password
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                password:
+ *                  type: string
+ *      tags:
+ *        - User
+ *      responses:
+ *        "200":
+ *          description: The new password was created successfully.
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/Result'
+ *        "400":
+ *          description: Please provide a password longer than 6, less than 20 characters.
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/Result'
+ *        "401":
+ *          description: Invalid token.
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/Result'
+ *        "500":
+ *          description: An internal server error occurred, please try again.
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/Result'
+ */
