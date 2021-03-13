@@ -7,8 +7,7 @@ export async function checkAdmin(req, res, next) {
       return res.status(500).json(errorHelper('00016', req, err.message));
     });
 
-  if (user.type !== 'admin')
-    return res.status(403).json(errorHelper('00017', req));
+  if (user.type !== 'admin') return res.status(403).json(errorHelper('00017', req));
 
   next();
 }
@@ -29,8 +28,7 @@ export async function checkReader(req, res, next) {
       return res.status(500).json(errorHelper('00020', req, err.message));
     });
 
-  if (user.type === 'user')
-    return res.status(403).json(errorHelper('00021', req));
+  if (user.type === 'user') return res.status(403).json(errorHelper('00021', req));
 
   next();
 }

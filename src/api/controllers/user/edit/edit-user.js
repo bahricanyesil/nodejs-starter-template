@@ -15,21 +15,21 @@ const s3 = new S3({
 export default async (req, res) => {
   const { error } = validateEditUser(req.body);
   if (error) {
-  let code = '00077';
-  const message = error.details[0].message;
-  if (message.includes('gender'))
-    code = '00078';
-  else if (message.includes('language'))
-    code = '00079';
-  else if (message.includes('birthDate'))
-    code = '00080';
-  else if (message.includes('username'))
-    code = '00081';
-  return res.status(400).json(errorHelper(code, req, message));
+    let code = '00077';
+    const message = error.details[0].message;
+    if (message.includes('gender'))
+      code = '00078';
+    else if (message.includes('language'))
+      code = '00079';
+    else if (message.includes('birthDate'))
+      code = '00080';
+    else if (message.includes('username'))
+      code = '00081';
+    return res.status(400).json(errorHelper(code, req, message));
   }
 
   const user = await User.findById(req.user._id).catch((err) => {
-  return res.status(500).json(errorHelper('00082', req, err.message));
+    return res.status(500).json(errorHelper('00082', req, err.message));
   });
 
   if (req.body.name) user.name = req.body.name;

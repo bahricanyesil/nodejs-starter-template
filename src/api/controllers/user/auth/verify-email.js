@@ -21,11 +21,9 @@ export default async (req, res) => {
       return res.status(500).json(errorHelper('00051', req, err.message));
     });
 
-  if (!exists)
-    return res.status(400).json(errorHelper('00052', req));
+  if (!exists) return res.status(400).json(errorHelper('00052', req));
 
-  if (req.body.code !== req.user.code)
-    return res.status(400).json(errorHelper('00054', req));
+  if (req.body.code !== req.user.code) return res.status(400).json(errorHelper('00054', req));
 
   await User.updateOne({ _id: req.user._id }, { $set: { isVerified: true } })
     .catch((err) => {
