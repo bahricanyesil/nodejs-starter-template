@@ -1,21 +1,19 @@
-const mongoose = require('mongoose');
-const { dbUri } = require('../config');
+import mongoose from 'mongoose';
 
-module.exports = async () => {
-    await mongoose
-        .connect(dbUri,
-            {
-                useCreateIndex: true,
-                useNewUrlParser: true,
-                useUnifiedTopology: true
-            }
-        )
-        .then(() => {
-            console.log('Mongodb Connection');
-        })
-        .catch(err => {
-            console.log(err);
-        });
+import { dbUri } from '../config/index.js';
 
-    mongoose.Promise = global.Promise;
+export default async () => {
+  await mongoose.connect(dbUri,
+    {
+      useCreateIndex: true,
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    }
+  )
+    .then(() => {
+      console.log('Mongodb Connection');
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };

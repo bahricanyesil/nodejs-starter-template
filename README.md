@@ -196,7 +196,7 @@ Sends the required information to logger util to log and after that returns the 
 
 Request data is validated using [Joi](https://github.com/hapijs/joi).
 
-The validation schemas are defined in the src/validators directory and are used in the controllers by providing body as the parameter to the specific validation function.
+The validation schemas are defined in the src/models/index.js directory and are used in the controllers by providing body as the parameter to the specific validation function.
 
 ```js
 # A sample function in user.validator.js
@@ -211,8 +211,9 @@ The validation schemas are defined in the src/validators directory and are used 
     return schema.validate(body);
 }
 
+//TODO: Update readme files
 # A sample call to a validate function
-const { userValidator } = require('../../../validators');
+const { userValidator } = require('../../../models/index.js');
 
 const { error } = userValidator.editUser(req.body);
 ```

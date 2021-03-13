@@ -1,10 +1,10 @@
-const en = require('./en.json');
-const tr = require('./tr.json');
+import en from './en.js';
+import tr from './tr.js';
 
-module.exports = (lang, key) => {
-    if (lang == 'tr') {
-        return tr[key];
-    } else {
-        return en[key];
-    }
+export default (lang, key) => {
+  if (lang == 'tr') {
+    return tr[key];
+  } else {
+    return en[key];
+  }
 };

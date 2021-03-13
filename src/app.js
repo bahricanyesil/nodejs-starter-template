@@ -1,15 +1,17 @@
-const express = require('express');
+import express from 'express';
+import { port } from './config/index.js';
+import loader from './loaders/index.js';
+
 const app = express();
-const api = require('./config');
 
-require('./loaders')(app);
+loader(app);
 
-const PORT = api.port;
-
-app.listen(PORT, err => {
-    if (err) {
-        console.log(err);
-        return process.exit(1);
-    }
-    console.log(`Server is running on ${PORT}`);
+app.listen(port, err => {
+  if (err) {
+    console.log(err);
+    return process.exit(1);
+  }
+  console.log(`Server is running on ${port}`);
 });
+
+export default app

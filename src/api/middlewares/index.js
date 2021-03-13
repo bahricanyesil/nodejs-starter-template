@@ -1,14 +1,5 @@
-const auth = require('./auth/check-auth');
-const authority = require('./auth/check-authority');
-
-const imageUpload = require('./image-upload');
-const objectIdControl = require('./object-id-control');
-const rateLimiter = require('./rate-limiter');
-
-module.exports = {
-    auth,
-    authority,
-    imageUpload,
-    objectIdControl,
-    rateLimiter
-}
+export { default as auth } from './auth/check-auth.js'
+export { default as imageUpload } from './image-upload.js'
+export { default as objectIdControl } from './object-id-control.js'
+export { default as rateLimiter } from './rate-limiter.js'
+export { checkAdmin, checkCreator, checkReader } from './auth/check-authority.js'

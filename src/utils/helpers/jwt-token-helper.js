@@ -1,37 +1,34 @@
-const JWT = require('jsonwebtoken');
-const { jwtSecretKey, refreshTokenSecretKey } = require('../../config');
+import pkg from 'jsonwebtoken';
+const { sign } = pkg;
+import { jwtSecretKey, refreshTokenSecretKey } from '../../config/index.js';
 
-module.exports = {
-    signAccessToken: (userId) => {
-        const accessToken = JWT.sign(
-            { _id: userId },
-            jwtSecretKey,
-            {
-                expiresIn: '1h',
-            }
-        );
-        return accessToken;
-    },
-
-    signRefreshToken: (userId) => {
-        const refreshToken = JWT.sign(
-            { _id: userId },
-            refreshTokenSecretKey,
-            {
-                expiresIn: '7d',
-            }
-        );
-        return refreshToken;
-    },
-
-    signRConfirmCodeToken: (userId, confirmCode) => {
-        const confirmCodeToken = JWT.sign(
-            { _id: userId, code: confirmCode },
-            jwtSecretKey,
-            {
-                expiresIn: '5m',
-            }
-        );
-        return confirmCodeToken;
-    },
+export function signAccessToken(userId) {
+  const accessToken = sign(
+    { _id: userId },
+    jwtSecretKey,
+    {
+      expiresIn: '1h',
+    }
+  );
+  return accessToken;
+}
+export function signRefreshToken(userId) {
+  const refreshToken = sign(
+    { _id: userId },
+    refreshTokenSecretKey,
+    {
+      expiresIn: '7d',
+    }
+  );
+  return refreshToken;
+}
+export function signConfirmCodeToken(userId, confirmCode) {
+  const confirmCodeToken = sign(
+    { _id: userId, code: confirmCode },
+    jwtSecretKey,
+    {
+      expiresIn: '5m',
+    }
+  );
+  return confirmCodeToken;
 }

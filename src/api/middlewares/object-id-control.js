@@ -1,12 +1,13 @@
-const mongoose = require('mongoose');
-const { errorHelper } = require('../../utils');
+import pkg from 'mongoose';
+const { Types } = pkg;
+import { errorHelper } from '../../utils/index.js';
 
-module.exports = function (req, res, next) {
-    if (!req.params.id)
-        return res.status(400).json(errorHelper('00022', req));
+export default (req, res, next) => {
+  if (!req.params.id)
+    return res.status(400).json(errorHelper('00022', req));
 
-    if (!mongoose.Types.ObjectId.isValid(req.params.id))
-        return res.status(400).json(errorHelper('00023', req));
+  if (!Types.ObjectId.isValid(req.params.id))
+    return res.status(400).json(errorHelper('00023', req));
 
-    next();
+  next();
 }
