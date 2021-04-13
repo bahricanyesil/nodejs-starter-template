@@ -6,7 +6,9 @@ export default async (req, res) => {
   const { error } = validateSendVerificationCode(req.body);
   if (error) return res.status(400).json(errorHelper('00029', req, error.details[0].message));
 
-  const user = await User.findOne({ email: req.body.email, isActivated: true })
+  const trimmedEmail = req.body.email.trim();
+
+  const user = await User.findOne({ email: trimmedEmail, isActivated: true })
     .catch((err) => {
       return res.status(500).json(errorHelper('00030', req, err.message));
     });
@@ -14,7 +16,7 @@ export default async (req, res) => {
   if (!user) return res.status(404).json(errorHelper('00036', req));
 
   const emailCode = generateRandomCode(4);
-  await sendCodeToEmail(req.body.email, user.name, emailCode, user.language, 'newCode', req, res);
+  await sendCodeToEmail(trimmedEmail, user.name, emailCode, user.language, 'newCode', req, res);
 
   user.isVerified = false;
 

@@ -21,17 +21,19 @@ export default async (req, res) => {
     return res.status(400).json(errorHelper(code, req, error.details[0].message));
   }
 
-  const exists = await User.exists({ email: req.body.email })
-  .catch((err) => {
-    return res.status(500).json(errorHelper('00031', req, err.message));
-  });
+  const trimmedEmail = req.body.email.trim();
+
+  const exists = await User.exists({ email: trimmedEmail })
+    .catch((err) => {
+      return res.status(500).json(errorHelper('00031', req, err.message));
+    });
 
   if (exists) return res.status(409).json(errorHelper('00032', req));
 
   const hashed = await hash(req.body.password, 10);
 
   const emailCode = generateRandomCode(4);
-  await sendCodeToEmail(req.body.email, req.body.name, emailCode, req.body.language, 'register', req, res);
+  await sendCodeToEmail(trimmedEmail, req.body.name, emailCode, req.body.language, 'register', req, res);
 
   let username = '';
   let tempName = '';
@@ -52,7 +54,7 @@ export default async (req, res) => {
   const geo = lookup(ipHelper(req));
 
   let user = new User({
-    email: req.body.email,
+    email: trimmedEmail,
     password: hashed,
     name: name,
     username: username,
