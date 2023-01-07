@@ -1,16 +1,11 @@
-import { RateLimiterMongo } from 'rate-limiter-flexible';
 import mongoose from 'mongoose';
-import { errorHelper } from '../../utils/index.js';
+import { RateLimiterMongo } from 'rate-limiter-flexible';
 import { dbUri } from '../../config/index.js';
+import { errorHelper } from '../../utils/index.js';
 
-const mongoOpts = {
-  useCreateIndex: true,
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false
-};
 
-const mongoConn = mongoose.createConnection(dbUri, mongoOpts);
+mongoose.set("strictQuery", false);
+const mongoConn = mongoose.createConnection(dbUri, {});
 
 const opts = {
   storeClient: mongoConn,
