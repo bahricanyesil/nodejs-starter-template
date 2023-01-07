@@ -3,13 +3,8 @@ import mongoose from 'mongoose';
 import { dbUri } from '../config/index.js';
 
 export default async () => {
-  await mongoose.connect(dbUri,
-    {
-      useCreateIndex: true,
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    }
-  )
+  mongoose.set("strictQuery", false);
+  await mongoose.connect(dbUri,{})
     .then(() => {
       console.log('Mongodb Connection');
     })
